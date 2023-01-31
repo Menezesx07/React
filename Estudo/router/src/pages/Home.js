@@ -1,0 +1,33 @@
+import { Link } from "react-router-dom"
+import { useFetch, useFetche } from '../hooks/useFetch'
+
+import './Home.css'
+
+const Home = () => {
+
+  //3 - carregamento de dados
+  const url = 'http://localhost:3000/products'
+
+  //useFetch é um hook (pasta hook), que retorna items, o status
+  //do loading, e os possiveis erros, configurados na aula sobre http
+  const {data: items, loading, error} = useFetch(url)
+
+  return (
+    <div>
+        <h1>Produtos</h1>
+        {error && <p>{error}</p>}
+        <ul className="products">
+            {items && items.map(item => (
+              <li key={item.id}>
+                  <h2>{item.name}</h2>
+                  <p>R$: {item.price}</p>
+                  {/* 4 - rota dinamica */}
+                  <Link to={`/products/${item.id}`}>Detalhes</Link>
+              </li>
+            ))}
+        </ul>
+    </div>
+  )
+}
+
+export default Home

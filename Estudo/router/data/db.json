@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Maça",
+      "price": 9.99
+    },
+    {
+      "id": 2,
+      "name": "Banana",
+      "price": 3.99
+    },
+    {
+      "id": 3,
+      "name": "Uva",
+      "price": 12.99
+    }
+  ]
+}

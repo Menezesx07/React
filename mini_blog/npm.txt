@@ -1,0 +1,9 @@
+npm i @react-native-firebase/app
+
+npm i @react-native-firebase/firestore
+
+npm install firebase@9.16.0 --save
+
+npm i bootstrap@5.3.0-alpha1
+
+npm install react-bootstrap bootstrap
