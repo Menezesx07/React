@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: .5em 2em;
+    margin-bottom: 50px;
 }
 
 .brand {
@@ -14,6 +15,7 @@
     font-weight: 900;
     text-transform: uppercase;
 }
+
 
 .links_list {
     display: flex;

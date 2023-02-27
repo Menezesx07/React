@@ -4,7 +4,6 @@ import styles from "./Register.module.css"
 
 import { useEffect, useState } from "react"
 import { useAuthentication } from "../../hooks/useAuthentication"
-import BasicExample from "../../bootstrap/config"
 import GrowExample from "../../bootstrap/config"
 
 
@@ -117,10 +116,10 @@ const Register = () => {
 
           {/* pegando o loading do retorno do hook da autenticação */}
           {!loading && <button className="btn"> Cadastrar </button>}
-          {loading && <button className="btn" disabled> Aguarde... </button>}
+          {loading && <button className="btn" disabled> Aguarde... <GrowExample/></button>}
 
-          {error && <p className="error">{error}</p>}
-          <GrowExample/>
+          {error && <p className="error">{error} </p>}
+          
 
         </form>
     </div>

@@ -5,7 +5,8 @@ import {
     createUserWithEmailAndPassword, 
     singInWithEmailAndPassword,
     updateProfile,
-    singOut
+    signOut,
+    signInWithEmailAndPassword
 } from 'firebase/auth' //pasta do firebase no node_modules
 
 
@@ -27,12 +28,19 @@ export const useAuthentication = () => {
     //aberta, caso o usuario tente fazer um novo cadastro, pode da algum problema de vazamento
     //de dados de um cadastro para o outro
     function checkIfIsCancelled() {
+
+        
+        //se o cancelamento for false, ele dispara
+        //se o cancelamento for true, tem dados na memoria
         if (cancelled) {
             return;
         }
     }
 
+     /* ------------------------------- Register abaixo---------------------------------------------*/
+
     //função de cadastro no sistema
+    //data vem como parametro da chamada da função no Register.js
     const createUser = async (data) => {
 
         //anotação na declaração da função ali em cima
@@ -93,10 +101,59 @@ export const useAuthentication = () => {
              setLoading(false)
 
         }
+    }
+ 
+    /* ------------------------------- Register acima ---------------------------------------------*/
 
-       
+    /* -------------------------------- Logout abaixo ---------------------------------------------*/
+
+    const logout = () => {
+
+        checkIfIsCancelled()
+
+        signOut(auth)
+    }
+
+    //sign in
+    //data vem como parametro da chamada da função no Login.js
+    const login = async(data) => {
+        
+        checkIfIsCancelled()
+        setLoading(true)
+        setError(false)
+
+        try {
+
+            await signInWithEmailAndPassword(auth, data.email, data.password)
+            setLoading(false)
+
+        } catch (e) {
+
+            let systemErrorMessage
+
+            //includes consegue capturar só um pedaço do texto passado como parametro
+            if(e.message.includes("user-not-found")) { 
+                systemErrorMessage= "usuario não encontrado"
+            } else if (e.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha Incorreta"
+            } else {
+                systemErrorMessage = "Ocorreu um erro, tente novamente mais tarde"
+            }
+
+            setError(systemErrorMessage)
+            setLoading(false)
+
+        }
+
 
     }
+
+
+
+
+
+    /* ------------------------------- Logout acima ---------------------------------------------*/
+
 
     //aparentemente, é como fechar a conexão com o servidor, sendo assim, se ela ainda estiver
     //aberta, caso o usuario tente fazer um novo cadastro, pode da algum problema de vazamento
@@ -111,6 +168,8 @@ export const useAuthentication = () => {
         auth,
         createUser,
         error,
-        loading
+        loading,
+        logout,
+        login
     }
 }
